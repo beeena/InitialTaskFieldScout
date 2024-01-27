@@ -1,0 +1,74 @@
+import {
+  Box,
+  Divider,
+  FormControl,
+  NativeBaseProvider,
+  Text,
+} from "native-base";
+import { Button, StyleSheet, View } from "react-native"; // Import View
+import { ButtonComponent } from "../singleComponents/Button";
+import { InputContainer } from "../singleComponents/InputContainer";
+import { InputComp } from "../singleComponents/Input";
+import useTranslation from "../TranslationHook/useTranslation";
+import { BackNavigate } from "../singleComponents/BackNavigate";
+
+export default function PermitExtension({ navigation, customStyle }) {
+  const { translate } = useTranslation();
+
+  const handleNextScreen = () => {
+    navigation.navigate("PersonalInfo"); // Navigate to the PersonalInfo screen
+  };
+  return (
+    <NativeBaseProvider>
+      <Box
+        flex={1}
+        // alignSelf="center"
+        justifyContent="center"
+        alignItems="center"
+        p={4}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+          <BackNavigate onPress={() => navigation.goBack()} />
+          <FormControl>
+            <Box>
+              <Text style={customStyle} bold fontSize="xl" mb={4}>
+                {translate("MegaTest")}
+              </Text>
+              <FormControl mb="5">
+                <InputContainer>
+                  <Text style={customStyle}>
+                    {translate("WhatDateIsThisPermitFor")}
+                  </Text>
+                  <InputComp placeholder="..." />
+                </InputContainer>
+                <InputContainer>
+                  <Text style={customStyle}>{translate("EquipmentNumber")}</Text>
+                  <InputComp placeholder="..." />
+                </InputContainer>
+              </FormControl>
+              <Divider />
+              <ButtonComponent
+                title={translate("Submit")}
+                buttonStyle={{
+                  width: "100%",
+                  paddingVertical: 10,
+                  alignItems: "center",
+                  borderRadius: 5,
+                  backgroundColor: "#0B1131",
+                }}
+                onPress={handleNextScreen}
+              />
+            </Box>
+          </FormControl>
+        </View>
+      </Box>
+    </NativeBaseProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  icon: {
+    borderWidth: 2,
+    borderColor: "black",
+  },
+});
